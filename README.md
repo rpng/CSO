@@ -1,6 +1,8 @@
 # calibration_stereo_odom (CSO)
 Calibration the rigid transformation between the stereo and odometry
 
+ ![image](https://github.com/doomzzju/CSO/img.png)
+
 **Authors:** Doom
 
 Calibration_stereo_odom (CSO) is a tool to calibrate the rigid body transformation between a stereo camera and robot odometry.
