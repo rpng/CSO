@@ -1,7 +1,7 @@
 # calibration_stereo_odom (CSO)
 Calibration the rigid transformation between the stereo and odometry
 
- ![image](https://github.com/doomzzju/CSO/img.png)
+ ![image](https://github.com/doomzzju/CSO/blob/master/img.png)
 
 **Authors:** Doom
 
