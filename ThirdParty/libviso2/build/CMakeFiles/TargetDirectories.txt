@@ -1,1 +1,0 @@
-/home/doom/calibration_stereo_odom/ThirdParty/libviso2/build/CMakeFiles/viso2.dir
