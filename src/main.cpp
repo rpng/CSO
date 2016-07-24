@@ -4,6 +4,7 @@
 #include "gm2dl_io.h"
 #include "edge_calib.h"
 #include "g2o_optimize.h"
+#include "yaml_wrapper.h"
 #include "libviso2_wrapper.h"
 #include "motion_information.h"
 #include "closed_form_calibration.h"
@@ -21,37 +22,32 @@ int main(int argc, char** argv)
     bool use_cfs = false;
 
     cout << endl
-            << "\033[1;36mA demo implementing the method of stereo-odo calibration.\033[0m"
+            << "\033[32mA demo implementing the method of stereo-odo calibration.\033[0m"
             << endl << "* * * Author: \033[32mDoom @ ZJU.\033[0m"
             << endl << "Usage: sclam_odo_stereo_cal USE_VISO INPUT_FILENAME USE_CLOSEFORM" << endl << endl;
-    if(argc < 3)
-    {
-        cout << "\033[33m[Warning]:Using libviso, no input directory name, using the default one : /home/doom/zed\033[0m" << endl << endl;
-        rawFilename = "/home/doom/zed";
-        use_viso = true;
+
+    if(argc < 2){
+        cout << "\033[33m[Warning]:No input directory name, using the default one : /home/doom/CSO/data/params.yaml\033[0m" << endl << endl;
+        // Read in our param file
+        CYaml::get().parseParamFile("/home/doom/CSO/data/params.yaml");
+        // Read in params
+        use_viso = CYaml::get().general()["use_viso"].as<bool>();
+        rawFilename = CYaml::get().general()["data_folder"].as<std::string>();
+        use_cfs = CYaml::get().general()["use_closed_form"].as<bool>();
     }
-    else if((argc == 3) && !strcmp(argv[1], "true"))
-    {
-        rawFilename = argv[2];
-        cout << "\033[31mUsing libviso, input file directory: \033[0m" << rawFilename << endl;
-        use_viso = true;
-    }
-    else if((argc == 3) && !strcmp(argv[1], "false"))
-    {
-        rawFilename = argv[2];
-        cout << "\033[31mLoad vo from file, input file directory:\033[0m " << rawFilename << endl;
-        use_viso = false;
+    else if(argc == 2){
+        cout << "\033[31mInput params file directory: \033[0m" << argv[1] << endl << endl;
+        // Read in our param file
+        CYaml::get().parseParamFile(argv[1]);
+        // Read in params
+        use_viso = CYaml::get().general()["use_viso"].as<bool>();
+        rawFilename = CYaml::get().general()["data_folder"].as<std::string>();
+        use_cfs = CYaml::get().general()["use_closed_form"].as<bool>();
     }
     else
     {
         cerr << "\033[31m[FATAL]Bad parameters.\033[0m" << endl;
         return 1;
-    }
-
-    // if use closed form solution, set this to true.
-    if((argc == 4) && (!strcmp(argv[3], "false")))
-    {
-        use_csf = true;
     }
 
     // construct a new optimizer
@@ -107,6 +103,7 @@ int main(int argc, char** argv)
     int numVo = 0;
     if(use_viso)
     {
+        cout << "\033[31mUsing libviso...\033[0m" << rawFilename << endl;
         RobotOdom* ro = dynamic_cast<RobotOdom*>(odometryQueue.buffer().begin()->second);
         // init a libviso2
         StereoVo viso(rawFilename, Num, ro, timeque);

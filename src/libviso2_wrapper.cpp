@@ -22,7 +22,7 @@ StereoVo::StereoVo(const string & _foldername, const int & _innum, RobotData * _
     wTc = viso::Matrix::eye(4);
 
     // stereo vo, i.e. libviso2
-    cerr << "\033[31mNow running Stereo Visual Odometry...\033[0m" << endl;
+    cerr << "\033[32mNow running Stereo Visual Odometry...\033[0m" << endl;
     for(int32_t i = 0; i < in_num; i++)
     {
         // input file names

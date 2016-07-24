@@ -1,0 +1,3 @@
+use_viso: false
+data_folder: /home/doom/zed
+use_closed_form: false
