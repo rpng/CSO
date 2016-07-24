@@ -1,5 +1,5 @@
 # calibration_stereo_odom (CSO)
-Calibration the rigid transformation between the stereo and odometry
+Calibrate the rigid transformation between the stereo and odometry
 
  ![image](https://github.com/doomzzju/CSO/blob/master/img.png)
 
@@ -40,7 +40,7 @@ chmod +x build.sh
 after that you can find the execute file in the build folder.
 
 #3. Usage and Examples.
-In this tool, we offer two different ways to load stereo vo, one is using libviso2 the other is load pose file directly.
+In this tool, we offer two different ways to load stereo vo, one is using libviso2 the other one is loading pose file directly.
 The Usage of this tool is:
 ```
 ./calibration_stereo_odom USE_VISO IMAGE_FOLDER USE_CLOSEFORM
